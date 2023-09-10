@@ -1,74 +1,35 @@
 'use client'
 
 import Link from 'next/link'
-import { useParams, usePathname } from 'next/navigation'
+import { usePathname } from 'next/navigation'
 
 import { cn } from '@/lib/utils'
+import { Category } from '@/types'
 
-export function MainNav({
-  className,
-  ...props
-}: React.HTMLAttributes<HTMLElement>) {
+interface MainNavProps {
+  data: Category[]
+}
+
+const MainNav: React.FC<MainNavProps> = ({ data }) => {
   const pathname = usePathname()
-  const params = useParams()
 
-  const routes = [
-    {
-      href: `/${params.storeId}`,
-      label: 'وضعیت',
-      active: pathname === `/${params.storeId}`,
-    },
-    {
-      href: `/${params.storeId}/billboards`,
-      label: 'بیلبوردها',
-      active: pathname === `/${params.storeId}/billboards`,
-    },
-    {
-      href: `/${params.storeId}/categories`,
-      label: 'دسته‌بندی‌ها',
-      active: pathname === `/${params.storeId}/categories`,
-    },
-    {
-      href: `/${params.storeId}/sizes`,
-      label: 'سایزها',
-      active: pathname === `/${params.storeId}/sizes`,
-    },
-    {
-      href: `/${params.storeId}/colors`,
-      label: 'رنگها',
-      active: pathname === `/${params.storeId}/colors`,
-    },
-    {
-      href: `/${params.storeId}/products`,
-      label: 'محصولات',
-      active: pathname === `/${params.storeId}/products`,
-    },
-    {
-      href: `/${params.storeId}/orders`,
-      label: 'سفارشات',
-      active: pathname === `/${params.storeId}/orders`,
-    },
-    {
-      href: `/${params.storeId}/settings`,
-      label: 'تنظیمات',
-      active: pathname === `/${params.storeId}/settings`,
-    },
-  ]
+  const routes = data.map((route) => ({
+    href: `/category/${route.id}`,
+    label: route.name,
+    active: pathname === `/category/${route.id}`,
+  }))
 
   return (
-    <nav
-      className={cn('flex items-center gap-4 lg:gap-6', className)}
-      {...props}
-    >
+    <nav className="mx-6 flex items-center gap-4 lg:gap-6">
       {routes.map((route) => (
         <Link
           key={route.href}
           href={route.href}
           className={cn(
-            'text-sm font-medium transition-colors hover:text-primary',
+            'text-sm font-medium transition-colors hover:text-black',
             route.active
-              ? 'text-black underline underline-offset-8 dark:text-white'
-              : 'text-muted-foreground'
+              ? 'text-black underline underline-offset-8'
+              : 'text-neutral-500'
           )}
         >
           {route.label}
@@ -77,3 +38,5 @@ export function MainNav({
     </nav>
   )
 }
+
+export default MainNav
