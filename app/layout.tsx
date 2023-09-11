@@ -3,6 +3,8 @@ import type { Metadata } from 'next'
 import localFont from 'next/font/local'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
+import { ReduxProviders } from '@/redux/Providers'
+import { Toaster } from '@/components/ui/toaster'
 
 const primaryFont = localFont({
   src: '../public/fonts/FarsiFont.woff2',
@@ -33,9 +35,12 @@ export default function RootLayout({
   return (
     <html lang="fa-IR" dir="rtl">
       <body className={`${primaryFont.variable} font-farsi adad  antialiased`}>
-        <Navbar />
-        {children}
-        <Footer />
+        <ReduxProviders>
+          <Navbar />
+          <Toaster />
+          {children}
+          <Footer />
+        </ReduxProviders>
       </body>
     </html>
   )

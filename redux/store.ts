@@ -1,14 +1,19 @@
 import { configureStore } from '@reduxjs/toolkit'
-import { themeReducer } from './slices/themeSlice'
+import { cardReducer } from './slices/cardSlice'
 import { modalReducer } from './slices/modalSlice'
 import { useSelector, TypedUseSelectorHook } from 'react-redux'
+import localStorageMiddleware from './slices/localStorageMiddleware'
 // import ratingsReducer from './slices/ratingsSlice'
 export const store = configureStore({
   reducer: {
-    themeReducer,
+    cardReducer,
     modalReducer,
     // ratings: ratingsReducer,
   },
+  middleware: (getDefaultMiddleware) => [
+    ...getDefaultMiddleware(),
+    localStorageMiddleware,
+  ],
 })
 
 export type RootState = ReturnType<typeof store.getState>

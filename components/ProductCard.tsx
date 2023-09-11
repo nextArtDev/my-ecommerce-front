@@ -4,19 +4,23 @@ import Image from 'next/image'
 import { MouseEventHandler } from 'react'
 import { Expand, ShoppingCart } from 'lucide-react'
 import { useRouter } from 'next/navigation'
+import { useAppSelector } from '@/redux/store'
+import { AppDispatch } from '@/redux/store'
+import { useDispatch } from 'react-redux'
 
-// import Currency from '@/components/ui/currency'
-// import usePreviewModal from '@/hooks/use-preview-modal'
 // import useCart from '@/hooks/use-cart'
 import { Product } from '@/types'
 import IconButton from './IconButton'
 import Currency from './Currency'
+import { onOpen } from '@/redux/slices/modalSlice'
+import { addItem } from '@/redux/slices/cardSlice'
 
 interface ProductCard {
   data: Product
 }
 
 const ProductCard: React.FC<ProductCard> = ({ data }) => {
+  const dispatch = useDispatch<AppDispatch>()
   //   const previewModal = usePreviewModal()
   //   const cart = useCart()
   const router = useRouter()
@@ -27,15 +31,15 @@ const ProductCard: React.FC<ProductCard> = ({ data }) => {
 
   const onPreview: MouseEventHandler<HTMLButtonElement> = (event) => {
     event.stopPropagation()
-
+    dispatch(onOpen(data))
     //   previewModal.onOpen(data)
   }
 
-  //   const onAddToCart: MouseEventHandler<HTMLButtonElement> = (event) => {
-  //     event.stopPropagation()
-
-  //     cart.addItem(data)
-  //   }
+  const onAddToCart: MouseEventHandler<HTMLButtonElement> = (event) => {
+    event.stopPropagation()
+    dispatch(addItem(data))
+    // cart.addItem(data)
+  }
 
   return (
     <div
@@ -57,7 +61,7 @@ const ProductCard: React.FC<ProductCard> = ({ data }) => {
               icon={<Expand size={20} className="text-gray-600" />}
             />
             <IconButton
-              //   onClick={onAddToCart}
+              onClick={onAddToCart}
               icon={<ShoppingCart size={20} className="text-gray-600" />}
             />
           </div>

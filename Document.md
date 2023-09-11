@@ -82,3 +82,39 @@ const getProducts = async (query: Query): Promise<Product[]> => {
   return res.json();
 };
 ```
+
+## Zarinpal
+
+<https://www.npmjs.com/package/zarinpal-pay>
+
+npm i zarinpal-pay
+
+create() // ایجاد تراکنش
+verify() // تایید تراکنش
+unverified() // ليست پرداخت هاي موفق اخیر
+
+import  ZarinpalPayment from  "zarinpal-pay";
+const zarinpal = new ZarinpalPayment (Merchant, isTomam ,isSandbox);
+
+
+ برای ایجاد تراکنش از متد create استفاده کنید
+
+```typescript
+
+try{
+
+ const createpay = await zarinpal.create({
+ amount: 100000,
+ callback_url: "http://localhost:8080/callback",
+ mobile: "09339993377",
+ email: "my@site.com",
+ description: "توضیحات تراکنش",
+ order_id: "3010",
+ });
+
+}catch (err) {
+ console.log(err);
+}
+
+
+```

@@ -8,7 +8,7 @@ import Image from 'next/image'
 const HomePage = async () => {
   const products = await getProducts({ isFeatured: true })
 
-  const billboard = await getBillboard('070bfe8e-dfa2-4a90-b7cc-84a6b393ac32')
+  const billboard = await getBillboard('2040276f-07c4-46ac-a569-ad7aa507918e')
   return (
     <div className="max-w-7xl mx-auto">
       <div className="space-y-10 pb-10">

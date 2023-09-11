@@ -5,8 +5,12 @@ import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { Button } from './ui/button'
 
+import { useAppSelector } from '@/redux/store'
+
 const NavbarActions = () => {
   const [isMounted, setIsMounted] = useState(false)
+  const cart = useAppSelector((state) => state.cardReducer)
+  console.log(cart.items.length)
 
   //Our cart uses local storage, so this cause hydration error
   useEffect(() => {
@@ -28,7 +32,7 @@ const NavbarActions = () => {
       >
         <ShoppingBag size={20} color="white" />
         <span className="mr-2 text-sm font-medium text-white">
-          {/* {cart.items.length} */} 3
+          {cart.items.length}
         </span>
       </Button>
     </div>
