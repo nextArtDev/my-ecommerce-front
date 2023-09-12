@@ -30,13 +30,16 @@ const ProductCard: React.FC<ProductCard> = ({ data }) => {
   }
 
   const onPreview: MouseEventHandler<HTMLButtonElement> = (event) => {
+    //overwrite the fact that wrapper div hasn't onClick and stop it
     event.stopPropagation()
+
     dispatch(onOpen(data))
     //   previewModal.onOpen(data)
   }
 
   const onAddToCart: MouseEventHandler<HTMLButtonElement> = (event) => {
     event.stopPropagation()
+
     dispatch(addItem(data))
     // cart.addItem(data)
   }
@@ -72,7 +75,7 @@ const ProductCard: React.FC<ProductCard> = ({ data }) => {
         <p className="font-semibold text-lg">{data.name}</p>
         <p className="text-sm text-gray-500">{data.category?.name}</p>
       </div>
-      {/* Price & Reiew */}
+      {/* Price & Review */}
       <div className="flex items-center gap-2">
         <Currency value={data?.price} />
         تومان

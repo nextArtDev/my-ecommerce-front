@@ -9,6 +9,7 @@ import Filter from './components/filters'
 import NoResults from '@/components/NoResult'
 import ProductCard from '@/components/ProductCard'
 
+//for having no-cache here
 export const revalidate = 0
 
 interface CategoryPageProps {
@@ -23,6 +24,7 @@ interface CategoryPageProps {
 
 const CategoryPage: React.FC<CategoryPageProps> = async ({
   params,
+  // we need searchParams to filter by colorId & sizeId
   searchParams,
 }) => {
   const products = await getProducts({
@@ -35,8 +37,8 @@ const CategoryPage: React.FC<CategoryPageProps> = async ({
   const category = await getCategory(params.categoryId)
 
   return (
-    <div className="bg-white">
-      <section className="mx-auto max-w-7xl">
+    <section className="bg-white">
+      <div className="mx-auto max-w-7xl">
         <Billboard data={category.billboard} />
         <div className="px-4 sm:px-6 lg:px-8 pb-24">
           <div className="lg:grid lg:grid-cols-5 lg:gap-x-8">
@@ -45,6 +47,7 @@ const CategoryPage: React.FC<CategoryPageProps> = async ({
               <Filter valueKey="sizeId" name="سایزها" data={sizes} />
               <Filter valueKey="colorId" name="رنگها" data={colors} />
             </div>
+            {/* Rendering products related to filters */}
             <div className="mt-6 lg:col-span-4 lg:mt-0">
               {products.length === 0 && <NoResults />}
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
@@ -55,8 +58,8 @@ const CategoryPage: React.FC<CategoryPageProps> = async ({
             </div>
           </div>
         </div>
-      </section>
-    </div>
+      </div>
+    </section>
   )
 }
 

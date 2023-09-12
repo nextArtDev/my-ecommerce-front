@@ -26,6 +26,7 @@ const Filters: React.FC<FilterProps> = ({ data, name, valueKey }) => {
       ...current,
       [valueKey]: id,
     }
+
     //If user clicks again, it means we have to remove it
     if (current[valueKey] === id) {
       query[valueKey] = null
@@ -50,8 +51,9 @@ const Filters: React.FC<FilterProps> = ({ data, name, valueKey }) => {
         {data.map((filter) => (
           <div key={filter.id} className="flex items-center">
             <Button
+              variant={'outline'}
               className={cn(
-                'rounded-md text-sm text-gray-800 p-2 bg-white border border-gray-300',
+                '',
                 selectedValue === filter.id && 'bg-red-500 text-white'
               )}
               onClick={() => onClick(filter.id)}

@@ -23,7 +23,10 @@ const MobileFilters: React.FC<MobileFiltersProps> = ({ sizes, colors }) => {
 
   return (
     <>
-      <Button onClick={onOpen} className="flex items-center gap-x-2 lg:hidden">
+      <Button
+        onClick={onOpen}
+        className="flex items-center gap-x-2 lg:hidden bg-red-500 rounded-full shadow-lg"
+      >
         فیلترها
         <Plus size={20} />
       </Button>
@@ -38,16 +41,16 @@ const MobileFilters: React.FC<MobileFiltersProps> = ({ sizes, colors }) => {
         <div className="fixed inset-0 bg-black bg-opacity-25" />
 
         {/* Dialog position */}
-        <div className="fixed inset-0 z-40 flex">
+        <div className="fixed inset-0 z-40 flex transition">
           <Dialog.Panel className="relative ml-auto flex h-full w-full max-w-xs flex-col overflow-y-auto bg-white py-4 pb-6 shadow-xl">
             {/* Close button */}
             <div className="flex items-center justify-end px-4">
               <IconButton icon={<X size={15} />} onClick={onClose} />
             </div>
-
+            {/* Render filters */}
             <div className="p-4">
-              <Filter valueKey="sizeId" name="Sizes" data={sizes} />
-              <Filter valueKey="colorId" name="Colors" data={colors} />
+              <Filter valueKey="sizeId" name="سایزها" data={sizes} />
+              <Filter valueKey="colorId" name="رنگها" data={colors} />
             </div>
           </Dialog.Panel>
         </div>

@@ -18,15 +18,15 @@ const cardSlice = createSlice({
       //  if (existingItem) {
       //    return toast({title:'آیتم قبلا به کارت اضافه شده'})
       //   }
-      state.items = [...state.items, action.payload]
+      // state.items = [...state.items, action.payload]
+      state.items?.push(action?.payload)
       toast({ title: 'آیتم به کارت اضافه شد' })
     },
     removeItem: (state, action: PayloadAction<Product>) => {
-      state.items = [
-        ...state.items.filter((item) => item.id !== action.payload.id),
-      ]
-
-      toast({ title: 'آیتم از کارت حذف شد' })
+      ;(state.items = state.items?.filter(
+        (item) => item.id !== action.payload.id
+      )),
+        toast({ title: 'آیتم از کارت حذف شد' })
     },
     removeAll: (state) => {
       state.items = []

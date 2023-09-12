@@ -21,15 +21,15 @@ const Summary = () => {
   // const items = useCart((state) => state.items);
   // const removeAll = useCart((state) => state.removeAll);
 
-  //Redirection after response to checkout
+  // ****Redirection after response to checkout****
   useEffect(() => {
-    if (searchParams.get('success')) {
+    if (searchParams.get('Status') === 'OK') {
       toast({ title: 'پرداخت تکمیل شد.' })
       // removeAll();
       dispatch(removeAll())
     }
 
-    if (searchParams.get('canceled')) {
+    if (searchParams.get('Status') === 'NOK') {
       toast({
         title: 'مشکلی پیش آمده.',
         description: 'عملیات پرداخت تکمیل نشد.',

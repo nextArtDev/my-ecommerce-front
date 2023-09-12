@@ -5,6 +5,7 @@ import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import { ReduxProviders } from '@/redux/Providers'
 import { Toaster } from '@/components/ui/toaster'
+import ModalProvider from '@/providers/ModalProvider'
 
 const primaryFont = localFont({
   src: '../public/fonts/FarsiFont.woff2',
@@ -36,6 +37,7 @@ export default function RootLayout({
     <html lang="fa-IR" dir="rtl">
       <body className={`${primaryFont.variable} font-farsi adad  antialiased`}>
         <ReduxProviders>
+          <ModalProvider />
           <Navbar />
           <Toaster />
           {children}

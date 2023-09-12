@@ -10,7 +10,9 @@ const localStorageMiddleware: Middleware = (store) => (next) => (action) => {
     action.type === removeAll.type
   ) {
     const state = store.getState()
-    const cartItems = state.cart.items
+    // console.log(state)
+    const cartItems = state.cardReducer
+    // console.log(cartItems)
     localStorage.setItem('cart-storage', JSON.stringify(cartItems))
   }
 
