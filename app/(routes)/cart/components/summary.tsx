@@ -2,7 +2,7 @@
 
 import axios from 'axios'
 import { useEffect } from 'react'
-import { useSearchParams } from 'next/navigation'
+import { redirect, useSearchParams } from 'next/navigation'
 
 import { useAppSelector } from '@/redux/store'
 import { AppDispatch } from '@/redux/store'
@@ -11,6 +11,7 @@ import { removeAll } from '@/redux/slices/cardSlice'
 import Currency from '@/components/Currency'
 import { Button } from '@/components/ui/button'
 import { toast } from '@/components/ui/use-toast'
+import getZibal from '@/actions/get-zibal'
 
 const Summary = () => {
   const searchParams = useSearchParams()
@@ -18,18 +19,34 @@ const Summary = () => {
   const dispatch = useDispatch<AppDispatch>()
   const items = useAppSelector((state) => state.cardReducer.items)
 
+  const ZibalVerification = async (amount: number, referenceId: string) => {
+    const res = await getZibal({ amount, referenceId })
+    console.log(res)
+  }
+
   // const items = useCart((state) => state.items);
   // const removeAll = useCart((state) => state.removeAll);
 
+  const totalPrice = items.reduce((total, item) => {
+    return total + Number(item.price)
+  }, 0)
+
   // ****Redirection after response to checkout****
   useEffect(() => {
-    if (searchParams.get('Status') === 'OK') {
+    // 1=success 2=error
+
+    if (searchParams.get('success') === '1') {
       toast({ title: 'پرداخت تکمیل شد.' })
       // removeAll();
+      // success=1&status=2&trackId=3317549026
+      //gateway.zibal.ir/start/{{trackId}}
+      const referenceId = searchParams.get('trackId')
+      console.log(referenceId!)
+      ZibalVerification(totalPrice, referenceId!)
+
       dispatch(removeAll())
     }
-
-    if (searchParams.get('Status') === 'NOK') {
+    if (searchParams.get('success') === '2') {
       toast({
         title: 'مشکلی پیش آمده.',
         description: 'عملیات پرداخت تکمیل نشد.',
@@ -38,18 +55,15 @@ const Summary = () => {
     }
   }, [searchParams, dispatch])
 
-  const totalPrice = items.reduce((total, item) => {
-    return total + Number(item.price)
-  }, 0)
-
   const onCheckout = async () => {
     const response = await axios.post(
       `${process.env.NEXT_PUBLIC_API_URL}/checkout`,
       {
         productIds: items.map((item) => item.id),
+        totalPrice,
       }
     )
-
+    console.log(response.data)
     window.location = response.data.url
   }
 
@@ -67,7 +81,7 @@ const Summary = () => {
         disabled={items.length === 0}
         className="w-full mt-6"
       >
-        تسویه
+        پرداخت
       </Button>
     </div>
   )

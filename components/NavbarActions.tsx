@@ -10,7 +10,6 @@ import { useAppSelector } from '@/redux/store'
 const NavbarActions = () => {
   const [isMounted, setIsMounted] = useState(false)
   const cart = useAppSelector((state) => state.cardReducer)
-  console.log(cart.items.length)
 
   //Our cart uses local storage, so this cause hydration error
   useEffect(() => {
