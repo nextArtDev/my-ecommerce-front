@@ -6,6 +6,7 @@ import Link from 'next/link'
 import getCategories from '@/actions/get-categories'
 import NavbarActions from './NavbarActions'
 import MainNav from './MainNav'
+import { ThemeToggle } from './ThemeToggle'
 
 const Navbar = async () => {
   const categories = await getCategories()
@@ -18,6 +19,7 @@ const Navbar = async () => {
         </Link>
         <MainNav data={categories} />
         <NavbarActions />
+        <ThemeToggle />
       </div>
     </div>
   )

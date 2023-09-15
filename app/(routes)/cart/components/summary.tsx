@@ -42,6 +42,7 @@ const Summary = () => {
       //gateway.zibal.ir/start/{{trackId}}
       const referenceId = searchParams.get('trackId')
       console.log(referenceId!)
+      console.log(totalPrice)
       ZibalVerification(totalPrice, referenceId!)
 
       dispatch(removeAll())
@@ -53,7 +54,7 @@ const Summary = () => {
         variant: 'destructive',
       })
     }
-  }, [searchParams, dispatch])
+  }, [searchParams, dispatch, totalPrice])
 
   const onCheckout = async () => {
     const response = await axios.post(

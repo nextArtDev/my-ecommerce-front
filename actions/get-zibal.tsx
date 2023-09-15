@@ -30,9 +30,9 @@ const getZibal = async (query: Query) => {
   })
 
   const res = await fetch(url, { mode: 'no-cors' })
-  console.log(res)
 
-  return res.json()
+  console.log(res.body)
+  return res.body
 }
 
 export default getZibal
