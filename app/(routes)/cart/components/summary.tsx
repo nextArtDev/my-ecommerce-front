@@ -37,13 +37,15 @@ const Summary = () => {
 
     if (searchParams.get('success') === '1') {
       toast({ title: 'پرداخت تکمیل شد.' })
-      // removeAll();
+      // removeAll()
       // success=1&status=2&trackId=3317549026
       //gateway.zibal.ir/start/{{trackId}}
       const referenceId = searchParams.get('trackId')
+      const amount = searchParams.get('amount')
       console.log(referenceId!)
       console.log(totalPrice)
-      ZibalVerification(totalPrice, referenceId!)
+      const res = ZibalVerification(Number(amount), referenceId!)
+      console.log(res)
 
       dispatch(removeAll())
     }
@@ -53,6 +55,7 @@ const Summary = () => {
         description: 'عملیات پرداخت تکمیل نشد.',
         variant: 'destructive',
       })
+      console.log('error')
     }
   }, [searchParams, dispatch, totalPrice])
 

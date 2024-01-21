@@ -40,7 +40,7 @@ const Filters: React.FC<FilterProps> = ({ data, name, valueKey }) => {
       { skipNull: true }
     )
 
-    router.push(url)
+    router.push(url, { scroll: false })
   }
 
   return (

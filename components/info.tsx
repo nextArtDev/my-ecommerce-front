@@ -5,6 +5,9 @@ import { ShoppingCart } from 'lucide-react'
 import { Product } from '@/types'
 import Currency from './Currency'
 import { Button } from './ui/button'
+
+import { AppDispatch } from '@/redux/store'
+import { useDispatch } from 'react-redux'
 // import useCart from "@/hooks/use-cart";
 
 interface InfoProps {
@@ -12,6 +15,7 @@ interface InfoProps {
 }
 
 const Info: React.FC<InfoProps> = ({ data }) => {
+  const dispatch = useDispatch<AppDispatch>()
   // const cart = useCart();
 
   const onAddToCart = () => {
@@ -46,6 +50,7 @@ const Info: React.FC<InfoProps> = ({ data }) => {
       <div className="mt-12 flex items-center gap-x-3">
         <Button
           onClick={onAddToCart}
+          // onClick={dispatch(addItem(data))}
           className="flex items-center gap-x-2 bg-red-500 rounded-full"
         >
           اضافه‌کردن به سبد
